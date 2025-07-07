@@ -6,13 +6,6 @@
 pip install uv
 
 
-## 🐍 Requesting a Python Version
-
-Use the --python flag to request a specific Python version during environment creation:
-
-uv venv --python 3.11.6
-
-
 ## 🎯 Installing Specific Python Versions
 
 ### Single version:
@@ -46,6 +39,26 @@ uv python upgrade 3.12
 ### Upgrade all uv-managed versions:
 
 uv python upgrade
+
+
+## 🐍 Requesting a Python Version
+
+Use the --python flag to request a specific Python version during environment creation:
+
+uv venv --python 3.11.6
+
+
+### 🟢 Activating Virtual Environment
+
+After creating the virtual environment, activate it using:
+
+uv venv
+
+venv\Scripts\activate   # For Windows
+
+💡 On macOS/Linux, use:
+
+source .venv/bin/activate
 
 
 ## 🚀 Running Scripts Without Dependencies
