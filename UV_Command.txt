@@ -1,0 +1,149 @@
+Installing uv
+ 
+pip install uv
+
+
+Requesting a version
+
+A specific Python version can be requested with the --python flag in most uv commands. For example, when creating a virtual environment:
+
+uv venv --python 3.11.6
+
+Installing a specific version
+
+To install a specific Python version:
+uv python install 3.12
+
+
+To install multiple Python versions:
+uv python install 3.11 3.12
+
+
+To install an alternative Python implementation, e.g., PyPy:
+uv python install pypy@3.10
+
+
+Reinstalling Python
+To reinstall uv-managed Python versions, use --reinstall, e.g.:
+
+
+uv python install --reinstall
+
+
+Viewing Python installations
+
+
+To view available and installed Python versions:
+uv python list
+
+
+Upgrading Python versions
+
+To upgrade a Python version to the latest supported patch release:
+
+uv python upgrade 3.12
+
+
+To upgrade all uv-managed Python versions:
+uv python upgrade
+
+
+Running a script without dependencies
+
+uv run example.py
+
+
+Creating a new project
+
+You can create a new Python project using the uv init command:
+
+
+uv init example-app
+
+cd example-app
+
+
+Alternatively, you can initialize a project in the working directory:
+
+mkdir hello-world
+cd hello-world
+uv init
+
+
+uv will create the following files:
+
+├── .gitignore
+├── .python-version
+├── README.md
+├── main.py
+└── pyproject.toml
+
+
+The main.py file contains a simple "Hello world" program. 
+
+Try it out with uv run:
+
+uv run main.py
+
+
+Importing dependencies
+
+
+Dependencies declared in a requirements.txt file can be added to the project with the -r option:
+
+
+uv add -r requirements.txt
+Removing dependencies
+To remove a dependency:
+
+
+uv remove httpx
+
+Changing dependencies
+
+To change an existing dependency, e.g., to use a different constraint for httpx:
+
+
+uv add "httpx>0.1.0"
+
+Running commands in projects
+
+When working on a project, it is installed into the virtual environment at .venv. This environment is isolated from the current shell by default, so invocations that require the project, e.g., python -c "import example", will fail. Instead, use uv run to run commands in the project environment:
+
+uv run python -c "import example"
+
+Building and publishing a package
+
+uv supports building Python packages into source and binary distributions via uv build and uploading them to a registry with uv publish.
+
+uv build
+
+
+If you have internal packages that you do not want to be published, you can mark them as private:
+
+
+[project]
+classifiers = ["Private :: Do Not Upload"]
+
+This setting makes PyPI reject your uploaded package from publishing. It does not affect security or privacy settings on alternative registries.
+
+We also recommend only generating per-project PyPI API tokens: Without a PyPI token matching the project, it can't be accidentally published.
+
+
+Publishing your package
+
+Publish your package with uv publish:
+
+uv publish
+
+
+Installing your package
+Test that the package can be installed and imported with uv run:
+
+
+uv run --with <PACKAGE> --no-project -- python -c "import <PACKAGE>"
+The --no-project flag is used to avoid installing the package from your local project directory.
+
+Tip
+
+If you have recently installed the package, you may need to include the --refresh-package <PACKAGE> option to avoid using a cached version of the package.
